@@ -1,0 +1,267 @@
+<html>
+
+<head>
+    <title>
+        UCLoan
+    </title>
+    <link rel="icon" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"
+        integrity="sha512-5erpERW8MxcHDF7Xea9eBQPiRtxbse70pFcaHJuOhdEBQeAxGQjUwgJbuBDWve+xP/u5IoJbKjyJk50qCnMD7A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/onstart.js">
+
+    </script>
+</head>
+
+<body class="bg-gradient-to-b from-pink-50 to-fuchsia-200 font-mono">
+    <nav class=" shadow-lg rounded-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <!-- Website Logo -->
+                        <a href="#" class="flex items-center py-4 px-2">
+                            <span class="text-slate-700 text-lg font-bold">-[UCLoan]-</span>
+                        </a>
+                    </div>
+                    <!-- Primary Navbar items -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="viewLoan"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300 ">[VIEW
+                            LOANS]</a>
+                        <a href="beginLoan"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300">[START
+                            A LOAN]</a>
+                        <a href="closeLoan"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 transition duration-300">[PAST
+                            LOANS]</a>
+                        <a href="about"
+                            class="py-4 px-2 text-slate-500  hover:text-indigo-50 transition duration-300">[ABOUT]</a>
+                    </div>
+                </div>
+                <!-- Secondary Navbar items -->
+                <div class="hidden md:flex items-center space-x-3 ">
+                    <button id="loginButton" class="
+            rounded-lg
+            bg-indigo-500
+            hover:bg-fuchsia-400
+            py-0
+            px-2
+            text-white
+            text-sm
+            h-10
+            w-40
+            login-button
+          " onclick="loginWithEth()">
+                        Connect Wallet
+                    </button>
+                    <h1 id="chainId" class="text-black-500">
+                        ChainID: -
+                    </h1>
+                </div>
+
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <svg class=" w-6 h-6 text-gray-500 hover:text-orange-500 " x-show="!showMenu" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <!-- mobile menu -->
+        <div class="hidden mobile-menu">
+            <ul class="">
+                <li class="active"><a href="furnace"
+                        class="block text-sm px-2 py-4 text-white rounded-lg bg-orange-400 font-semibold">INCINERATE</a>
+                </li>
+                <li><a href="farms"
+                        class="block text-sm px-2 py-4 hover:bg-orange-400 hover:text-white rounded-lg transition duration-300">FARM</a>
+                </li>
+                <li><a href="community"
+                        class="block text-sm px-2 py-4 hover:bg-orange-400 hover:text-white rounded-lg transition duration-300">COMMUNITY</a>
+                </li>
+                <li><a href="https://traderjoexyz.com/#/trade/0xb54f16fb19478766a268f172c9480f8da1a7c9c3"
+                        class="block text-sm px-2 py-4 hover:bg-orange-400 hover:text-white rounded-lg transition duration-300">BUY
+                        $FRN</a></li>
+            </ul>
+        </div>
+
+
+        <script>
+            const btn = document.querySelector("button.mobile-menu-button");
+            const menu = document.querySelector(".mobile-menu");
+
+            btn.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+        </script>
+    </nav>
+    <div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+        <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center">
+            Make an OTC/P2P loan in seconds on Arbitrum. </h1>
+        <p class="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">No collateral? 500%
+            collateral? You decide. And it's all public on
+            the
+            blockchain for both parties to see.
+        </p>
+        <div class="mt-6 sm:mt-10 flex justify-center space-x-10 text-sm"><a
+                class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
+                href="/beginLoan">Get started</a><button type="button"
+                class="hidden sm:flex items-center w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700"><svg
+                    width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="flex-none text-slate-300 dark:text-slate-400" aria-hidden="true">
+                    <path d="m19 19-3.5-3.5"></path>
+                    <circle cx="11" cy="11" r="6"></circle>
+                </svg><span class="flex-auto">How does it work?</span></button></div>
+
+    </div>
+    <div class="relative w-1/4 flex flex-col">
+        <container class="mx-auto">
+            <figure class=" w-1/4 h-1/4 opacity-75 bg-slate-400 border-2 border-gray-900 rounded-xl px-50 md:p-3">
+                <p>button that creates boobs when u click it</p>
+            </figure>
+        </container>
+    </div>
+
+
+</body>
+
+</html>
+<!-- <div
+    class="
+      flex
+      w-full
+      h-full
+      justify-center
+      content-center
+      items-center
+      space-x-4
+    "
+  >
+    <div class="flex flex-col space-y-6">
+      <h3 class="text-center">Big baller dao</h3>
+      <div class="flex flex-col space-y-2">
+        <button
+          onclick="loginWithEth()"
+          class="
+            rounded
+            bg-white
+            border border-blue-400
+            hover:bg-red-100
+            py-2
+            px-4
+            text-gray-600
+            hover:text-gray-700
+          "
+        >
+          Login & Save ETH Address
+        </button>
+        <p id="userAddress" class="text-gray-600"></p>
+        <button
+          id="logoutButton"
+          onclick="logout()"
+          class="hidden text-blue-500 underline"
+        >
+          Logout
+        </button>
+      </div>
+      <button
+        id="getContractInfo"
+        onclick="getContractSymbol()"
+        class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white"
+      >
+        Get Contract Symbol
+      </button>
+      <div class="flex flex-col space-y-2"></div>
+    </div>
+  </div>
+
+  <script>
+
+    // Use this function to turn a 42 character ETH address
+    // into an address like 0x345...12345
+    function truncateAddress(address) {
+      if (!address) {
+        return "";
+      }
+      return `${address.substr(0, 5)}...${address.substr(
+        address.length - 5,
+        address.length
+      )}`;
+    }
+
+    // Display or remove the users know address on the frontend
+    function showAddress() {
+        if (!window.userAddress) {
+            document.getElementById("userAddress").innerText = "";
+            document.getElementById("logoutButton").classList.add("hidden");
+            return false;
+        }
+        document.getElementById("userAddress").innerText = `ETH Address: ${truncateAddress(window.userAddress)}`;
+        document.getElementById("logoutButton").classList.remove("hidden");
+    }
+
+    // remove stored user address and reset frontend
+    function logout() {
+      window.userAddress = null;
+      window.localStorage.removeItem("userAddress");
+      showAddress();
+    }
+
+    // Login with Web3 via Metamasks window.ethereum library
+    async function loginWithEth() {
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+        } 
+        else {
+            alert("No ETH brower extension detected.");
+        }
+
+      // Load in Localstore key
+        window.userAddress = window.localStorage.getItem("userAddress");
+
+        if (window.web3) {
+            try {
+              const selectedAccount = await window.ethereum
+                .request({
+                  method: "eth_requestAccounts",
+                })
+                .then((accounts) => accounts[0])
+                .catch(() => {
+                  throw Error("No account selected!");
+                });
+              window.userAddress = selectedAccount;
+              window.localStorage.setItem("userAddress", selectedAccount);
+              showAddress();
+            } catch (error) {
+          console.error(error);
+        }
+      } else {
+        alert("No ETH brower extension detected.");
+      }
+    }
+
+    // Go to blockchain and get the contract symbol. Keep in mind
+    // YOU MUST BE CONNECT TO RINKEBY NETWORK TO USE THIS FUNCTION
+    // why -> because this specific contract address is on ethereum.
+    // When you click login, just make sure your network is Rinkeby and it will all workout.
+    // async function getContractSymbol() {
+    //   const CONTRACT_ADDRESS = "0x1A5b30a61CED9B4D9c209E7F1d2fbD38657f8EB1";
+    //   const contract = new window.web3.eth.Contract(
+    //     window.ABI,
+    //     CONTRACT_ADDRESS
+    //   );
+    //   const symbol = await contract.methods
+    //     .symbol()
+    //     .call({ from: window.userAddress });
+    //   alert(`Contract ${CONTRACT_ADDRESS} Symbol: ${symbol}`);
+    }
+  </script> -->
