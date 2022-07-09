@@ -34,7 +34,7 @@ async function loginWithEth() {
         window.web3 = new Web3(window.ethereum);
     }
     else {
-        alert("No ETH brower extension detected.");
+        alert("At this time I only support metamask (or any other window.ethereum based wallets)");
     }
 
     // Load in Localstore key
