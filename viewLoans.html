@@ -9,8 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"
         integrity="sha512-5erpERW8MxcHDF7Xea9eBQPiRtxbse70pFcaHJuOhdEBQeAxGQjUwgJbuBDWve+xP/u5IoJbKjyJk50qCnMD7A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./js/onstart.js">
-    </script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script src="./js/viewLoans.js"></script>
 </head>
 
@@ -136,17 +135,17 @@
     <div id="borrowerLoans" class=" relative mx-auto pt-70 sm:pt-24 lg:pt-32">
         <div
             class=" m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
-            <h1 id="title" class="animate-pulse text-xl text-left">
+            <h1 id="title" class=" text-xl text-left">
                 Active Loans where you are the Borrower
             </h1>
-            <div id="textbox1" class="animate-pulse flex">
+            <div id="textbox1" class=" flex">
                 <div class="padding py-6">
-                    <p id="loanAddress">Loading...</p>
-                    <p id="lenderAddress">Loading..</p>
-                    <p id="borrowerAddress">Loading...</p>
-                    <p id="amountBorrowed" class="py-2">Reading the blockchain...</p>
-                    <p id="amountTotalPay">Reading the blockchain...</p>
-                    <p id="status">Reading the blockchain...</p>
+                    <p id="loanAddress1"></p>
+                    <p id="lenderAddress1"></p>
+                    <p id="borrowerAddress1"></p>
+                    <p id="amountBorrowed1" class="py-2"></p>
+                    <p id="amountTotalPay1"></p>
+                    <p id="status1"></p>
                 </div>
                 <div class="p-12">
 
@@ -155,7 +154,7 @@
 
             </div>
 
-            <div id="textbox1" class="animate-pulse flex">
+            <div id="textbox1" class="hidden flex">
                 <div class="padding py-6">
                     <p id="loanAddress">Loading...</p>
                     <p id="lenderAddress">Loading..</p>
@@ -187,32 +186,39 @@
 
 
 
-    <div class="relative mx-auto pt-70 sm:pt-24 lg:pt-32">
+    <div id="blenderLoans" class=" relative mx-auto pt-70 sm:pt-24 lg:pt-32">
         <div
-            class="m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
-            <h1 class="text-xl">
+            class=" m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
+            <h1 id="title" class=" text-xl text-left">
                 Active Loans where you are the Lender
             </h1>
-            <div class="flex">
+            <div id="lenderLoans" class=" flex">
                 <div class="padding py-6">
-                    <p id="loanAddress">Loan @ 0x0000000000000000000000000000000000000000</p>
-                    <p id="lenderAddress">Lender address is 0x0000000000000000000000000000000000000000</p>
-                    <p id="borrowerAddress">Borrower address is 0x0000000000000000000000000000000000000000(you)</p>
-                    <p id="amountBorrowed" class="py-2">Amount borrowed: 000 ETH</p>
-                    <p id="amountTotalPay"> Amount Left To Pay 000/000 ETH</p>
+                    <p id="loanAddress2"></p>
+                    <p id="lenderAddress2"></p>
+                    <p id="borrowerAddress2"></p>
+                    <p id="amountBorrowed2" class="py-2"></p>
+                    <p id="amountTotalPay2"></p>
+                    <p id="status">Reading the blockchain...</p>
                 </div>
-                <div>
+                <div class="p-12">
 
                 </div>
+
 
             </div>
-            <div class="flex">
+
+            <div id="textbox1" class="hidden flex">
                 <div class="padding py-6">
-                    <p id="loanAddress">Loan @ 0x0000000000000000000000000000000000000000</p>
-                    <p id="lenderAddress">Lender address is 0x0000000000000000000000000000000000000000</p>
-                    <p id="borrowerAddress">Borrower address is 0x0000000000000000000000000000000000000000(you)</p>
-                    <p id="amountBorrowed" class="py-2">Amount borrowed: 000 ETH</p>
-                    <p id="amountTotalPay"> Amount Left To Pay 000/000 ETH</p>
+                    <p id="loanAddress">Loading...</p>
+                    <p id="lenderAddress">Loading..</p>
+                    <p id="borrowerAddress">Loading...</p>
+                    <p id="amountBorrowed" class="py-2">Reading the blockchain...</p>
+                    <p id="amountTotalPay">Reading the blockchain...</p>
+                    <p id="status">Reading the blockchain...</p>
+                </div>
+                <div class="p-12">
+
                 </div>
 
 
@@ -237,14 +243,43 @@
         <div
             class="m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
             <h1 class="text-xl">
-                Borrowed Loans Active
+                Pending Loans
             </h1>
-            <div class="padding py-6 text-left">
-                boob
+            <div class="flex-col items-left">
+                <div class="padding py-6 text-left">
+                    Loan from 0x00000000000000000000000000 for 0 wei
+                </div>
+                <button id="accept" class="
+                rounded-md
+                bg-green-500
+                hover:bg-green-400
+                py-0
+                px-6
+                text-white
+                text-sm
+                h-5
+                w-50">
+                    Accept
+                </button>
+                <button id="deny" class="
+                rounded-md
+                bg-red-500
+                hover:bg-red-400
+                py-0
+                px-6
+                text-white
+                text-sm
+                h-5
+                w-50">
+                    Deny
+                </button>
             </div>
 
+        </div>
+    </div>
 
-            <!-- <svg class=" justify-center animate-spin -ml-1 mr-3 h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg"
+
+    <!-- <svg class=" justify-center animate-spin -ml-1 mr-3 h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="40" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="fuchsia"
@@ -252,7 +287,7 @@
                 </path>
             </svg>
             -->
-        </div>
+    </div>
 
 
     </div>
