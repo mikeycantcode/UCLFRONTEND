@@ -537,11 +537,7 @@ async function getData() {
     let check = isNullAddress(addressOfLoan, "borrowerLoans")
     if (check) {
         const currLoanContract = new ethers.Contract(addressOfLoan, ucLoanABI, provider)
-        if (await currLoanContract.isLoanActive()) {
-            loanData = await loanFound(addressOfLoan, currLoanContract, 1)
-        } else {
-
-        }
+        loanData = await loanFound(addressOfLoan, currLoanContract, 1)
     }
 
 
@@ -549,11 +545,7 @@ async function getData() {
     check = isNullAddress(addressOfLoan2, "lenderLoans")
     if (check) {
         const currLoanContract = new ethers.Contract(addressOfLoan, ucLoanABI, provider)
-        if (await currLoanContract.isLoanActive()) {
-            loanData = await loanFound(addressOfLoan2, currLoanContract, 2)
-        } else {
-            await pendingLoan(currLoanContract)
-        }
+        loanData = await loanFound(addressOfLoan2, currLoanContract, 2)
     }
 
 
