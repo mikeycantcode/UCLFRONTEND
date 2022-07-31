@@ -1,14 +1,5 @@
 # UCLFRONTEND
- Frontend for the UCLend Platform
- This frontend includes everything that the user will see
- Including all the js and other cool stuff
-
- Made with tailwindCSS
-
- Everything is a work in progress
-
-
-
+ Frontend for the uclend smart contracts. I deployed it using aws amplify here:    
+ Still working on it and I started before I knew what react.js was so i'm already in too deep to change that. 
  
-
-
+ Its currently made for my local blockchain network as I removed it from testnet testing to do an overhaul to make it prettier.
