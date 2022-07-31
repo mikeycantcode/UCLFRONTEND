@@ -20,7 +20,7 @@
                 <div class="flex space-x-7">
                     <div>
                         <!-- Website Logo -->
-                        <a href="#" class="flex items-center py-4 px-2">
+                        <a href="/home.html" class="flex items-center py-4 px-2">
                             <span class="text-slate-700 text-lg font-bold">-[ArbiLoan]-</span>
                         </a>
                     </div>
@@ -29,11 +29,11 @@
                         <a href="/viewLoans.html"
                             class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300 ">[VIEW
                             LOANS]</a>
-                        <a href="beginLoan"
+                        <a href="/beginLoans.html"
                             class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300">[START
                             A LOAN]</a>
-                        <a href="closeLoan"
-                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 transition duration-300">[PAST
+                        <a href="/closeLoans.html"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 transition duration-300">[CLOSE
                             LOANS]</a>
                         <a href="/faq.html"
                             class="py-4 px-2 text-slate-500  hover:text-indigo-50 transition duration-300">[FAQ]</a>
@@ -132,13 +132,13 @@
         </figure>
     -->
 
-    <div id="borrowerLoans" class=" relative mx-auto pt-70 sm:pt-24 lg:pt-32">
+    <div id="bLoans" class="relative mx-auto pt-70 sm:pt-24 lg:pt-32">
         <div
-            class=" m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
+            class="shadow-lg m-auto bg-slate-300 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
             <h1 id="title" class=" text-xl text-left">
                 Active Loans where you are the Borrower
             </h1>
-            <div id="textbox1" class=" flex">
+            <div id="borrowerLoans" class=" flex">
                 <div class="padding py-6">
                     <p id="loanAddress1"></p>
                     <p id="lenderAddress1"></p>
@@ -188,7 +188,7 @@
 
     <div id="blenderLoans" class=" relative mx-auto pt-70 sm:pt-24 lg:pt-32">
         <div
-            class=" m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
+            class="shadow-lg m-auto bg-slate-300 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
             <h1 id="title" class=" text-xl text-left">
                 Active Loans where you are the Lender
             </h1>
@@ -240,16 +240,17 @@
 
 
     <div class="relative mx-auto pt-70 sm:pt-24 lg:pt-32">
-        <div
-            class="m-auto bg-slate-900 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
-            <h1 class="text-xl">
+        <div id="pLoan"
+            class="shadow-lg m-auto bg-slate-300 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4">
+            <h1 class=" text-xl">
                 Pending Loans
             </h1>
-            <div class="flex-col items-left">
-                <div class="padding py-6 text-left">
+            <div id="pLoanTemplate" class="flex hidden justify-around">
+                <div id="pLoanText" class="padding py-2 text-left">
                     Loan from 0x00000000000000000000000000 for 0 wei
                 </div>
                 <button id="accept" class="
+                items-right
                 rounded-md
                 bg-green-500
                 hover:bg-green-400
@@ -257,7 +258,7 @@
                 px-6
                 text-white
                 text-sm
-                h-5
+                h-10
                 w-50">
                     Accept
                 </button>
@@ -269,7 +270,7 @@
                 px-6
                 text-white
                 text-sm
-                h-5
+                h-10
                 w-50">
                     Deny
                 </button>
@@ -295,12 +296,9 @@
 
 
     <div class="pt-8 md:pt-20 pb-10 md:pb-20 text-center overflow-hidden mx-auto">
-        <p class="text-slate-700 mx-auto">all loans and contracts are legally governed by the Standard Loan
-            Contract,
-            unless overwritten by a custom contract</p>
-        <p class="text-slate-700 mx-auto">created by @mikeycantcode on github. all use is at your own risk. donate
-            to
-            pawglover.eth onchain:))</p>
+        <p class="text-slate-700 mx-auto">all loans and contracts are legally governed by whatever contract you have
+            signed. please do your due diligence.</p>
+        <p class="text-slate-700 mx-auto">created by @mikeycantcode on github. all use is at your own risk.</p>
     </div>
 
     <div>

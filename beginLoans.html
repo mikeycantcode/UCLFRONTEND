@@ -1,0 +1,196 @@
+<html>
+
+<head>
+    <title>
+        ArbiLoan - P2P DEFI LOANS
+    </title>
+    <link rel="icon" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"
+        integrity="sha512-5erpERW8MxcHDF7Xea9eBQPiRtxbse70pFcaHJuOhdEBQeAxGQjUwgJbuBDWve+xP/u5IoJbKjyJk50qCnMD7A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="./js/beginLoans.js">
+
+    </script>
+</head>
+
+<body onload="" class="bg-gradient-to-b from-pink-50 to-fuchsia-200 font-mono">
+    <nav class="top-0 sticky bg-fuchsia-200 shadow-lg rounded-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <!-- Website Logo -->
+                        <a href="/home.html" class="flex items-center py-4 px-2">
+                            <span class="text-slate-700 text-lg font-bold">-[ArbiLoan]-</span>
+                        </a>
+                    </div>
+                    <!-- Primary Navbar items -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="/viewLoans.html"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300 ">[VIEW
+                            LOANS]</a>
+                        <a href="/beginLoans.html"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300">[START
+                            A LOAN]</a>
+                        <a href="/closeLoans.html"
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 transition duration-300">[CLOSE
+                            LOANS]</a>
+                        <a href="/faq.html"
+                            class="py-4 px-2 text-slate-500  hover:text-indigo-50 transition duration-300">[FAQ]</a>
+                    </div>
+                </div>
+                <!-- Secondary Navbar items -->
+                <div class="hidden md:flex items-center space-x-3 ">
+                    <button id="loginButton" class="
+            rounded-lg
+            bg-indigo-500
+            hover:bg-fuchsia-400
+            py-0
+            px-2
+            text-white
+            text-sm
+            h-10
+            w-40
+            login-button
+          " onclick="loginWithEth()">
+                        Connect Wallet
+                    </button>
+                    <h1 id="chainId" class="text-black-500">
+                        ChainID: -
+                    </h1>
+                </div>
+
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <svg class=" w-6 h-6 text-gray-500 hover:text-orange-500 " x-show="!showMenu" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <!-- mobile menu -->
+        <div class="hidden mobile-menu">
+            <ul class="">
+                <li class="active"><a href="furnace"
+                        class="block text-sm px-2 py-4 text-white rounded-lg bg-orange-400 font-semibold">INCINERATE</a>
+                </li>
+                <li><a href="farms"
+                        class="block text-sm px-2 py-4 hover:bg-orange-400 hover:text-white rounded-lg transition duration-300">FARM</a>
+                </li>
+                <li><a href="community"
+                        class="block text-sm px-2 py-4 hover:bg-orange-400 hover:text-white rounded-lg transition duration-300">COMMUNITY</a>
+                </li>
+                <li><a href="https://traderjoexyz.com/#/trade/0xb54f16fb19478766a268f172c9480f8da1a7c9c3"
+                        class="block text-sm px-2 py-4 hover:bg-orange-400 hover:text-white rounded-lg transition duration-300">BUY
+                        $FRN</a></li>
+            </ul>
+        </div>
+
+
+        <script>
+            const btn = document.querySelector("button.mobile-menu-button");
+            const menu = document.querySelector(".mobile-menu");
+
+            btn.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+        </script>
+    </nav>
+    <div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+        <h1 class="text-slate-900 font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tight text-center">
+            Start A Loan</h1>
+        <p class="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
+        </p>
+
+    </div>
+
+    <div class="relative mx-auto w-full max-w-lg">
+        <form class="bg-slate-300 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Counterparty
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="borrower" type="text" placeholder="Address to lend money to">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Amount to Lend
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="amountToLend" type="text" placeholder="Amount of money to lend (in ether)">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Interest Rate
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="intRate" type="text" placeholder="Address to lend money to">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Required Collateral
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="reqCollateral" type="text" placeholder="Amount of collateral to post (in ether)">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Due date in blocks (100 blocks is approx. 1 minute)
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="dueDate" type="text" placeholder="Due date in blocks">
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    class="bg-gradient-to-l from-fuchsia-500 to-red-500 hover:text-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button" onclick="createLoan()">
+                    Create Loan
+                </button>
+                <a class="inline-block align-baseline font-bold text-sm text-fuchsia-500 hover:text-blue-800"
+                    href="/faq.html">
+                    Got questions?
+                </a>
+            </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+            Please lend responsibly.
+        </p>
+    </div>
+
+
+
+
+    <div class="relative w-1/4 flex flex-col">
+        <container class="mx-auto">
+            <figure class=" w-1/4 h-1/8 opacity-0 bg-slate-400 border-2 border-gray-900 rounded-xl px-50 md:p-3">
+                <p>button that creates boobs when u click it</p>
+            </figure>
+        </container>
+    </div>
+
+
+    <div class="pt-8 md:pt-20 pb-10 md:pb-20 text-center overflow-hidden mx-auto">
+        <p class="text-slate-700 mx-auto">all loans and contracts are legally governed by whatever contract you have
+            signed. please do your due diligence.</p>
+        <p class="text-slate-700 mx-auto">created by @mikeycantcode on github. all use is at your own risk.</p>
+    </div>
+
+
+</body>
+
+</html>
