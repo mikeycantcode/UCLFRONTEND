@@ -104,23 +104,24 @@
         </script>
     </nav>
 
+    <div class="flex">
 
-
-    <div id="alert-1" class="hidden fixed inset-x-0 top-45 md:pb-4 text-sm md:text-md z-40">
-        <div class="flex justify-center">
-            <div
-                class="flex flex-col items-center w-full p-4 space-y-2 shadow-strong bg-red-400 md:p-2 md:rounded-2xl md:w-auto md:flex-row md:space-y-0 md:space-x-4 md:inline-flex bg-cool-gray-700">
-                <p class="flex-1 md:ml-2 text-cool-gray-200"><span class="text-neutrals-light-4">YOU NEED METAMASK TO
-                        CONNECT TO THE BLOCKCHAIN.
-                        <!-- --> <a class="underline" href="https://metamask.io">Get Metamask.</a>
-                    </span></p>
-                <div class="flex space-x-2"><a
-                        class="flex items-center justify-center px-6 py-1.5 text-md font-semibold bg-red-200 focus:outline-none rounded-lg text-neutrals-light-15 shadow-light"
-                        href="/viewLoans.html">Retry</a>
+        <div id="alert-1" class="hidden fixed inset-x-0 top-45 md:pb-4 text-sm md:text-md z-40">
+            <div class="flex justify-center">
+                <div
+                    class="flex flex-col items-center w-full p-4 space-y-2 shadow-strong bg-red-400 md:p-2 md:rounded-2xl md:w-auto md:flex-row md:space-y-0 md:space-x-4 md:inline-flex bg-cool-gray-700">
+                    <p class="flex-1 md:ml-2 text-cool-gray-200"><span class="text-neutrals-light-4">YOU NEED METAMASK
+                            TO
+                            CONNECT TO THE BLOCKCHAIN.
+                            <!-- --> <a class="underline" href="https://metamask.io">Get Metamask.</a>
+                        </span></p>
+                    <div class="flex space-x-2"><a
+                            class="flex items-center justify-center px-6 py-1.5 text-md font-semibold bg-red-200 focus:outline-none rounded-lg text-neutrals-light-15 shadow-light"
+                            href="/viewLoans.html">Retry</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!--
@@ -138,7 +139,7 @@
             <h1 id="title" class=" text-xl text-left">
                 Active Loans where you are the Borrower
             </h1>
-            <div id="borrowerLoans" class=" flex">
+            <div id="borrowerLoans" class="hidden flex">
                 <div class="padding py-6">
                     <p id="loanAddress1"></p>
                     <p id="lenderAddress1"></p>
@@ -192,7 +193,7 @@
             <h1 id="title" class=" text-xl text-left">
                 Active Loans where you are the Lender
             </h1>
-            <div id="lenderLoans" class=" flex">
+            <div id="lenderLoans" class="hidden flex">
                 <div class="padding py-6">
                     <p id="loanAddress2"></p>
                     <p id="lenderAddress2"></p>
@@ -309,7 +310,7 @@
 
 
 
-
+    </div>
 </body>
 
 </html>

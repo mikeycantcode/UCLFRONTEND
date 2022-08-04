@@ -22,9 +22,9 @@ async function loginWithEth() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner()
-    let address = await signer.getAccount()
+    let address = await signer.getAddress()
     localStorage.setItem("userAddress", address)
-    document.getElementById("loginButton").innerHTML = truncateAddress(address);
+    document.getElementById("loginButton").innerHTML = truncateAddress(localStorage.getItem("userAddress"));
 
 
     document.getElementById("loginButton").classList.remove("bg-red-500");
@@ -268,6 +268,19 @@ let ucLoanABI = [
     },
     {
         "inputs": [],
+        "name": "viewAmountBorrowed",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "viewAmountFundedByAddress",
         "outputs": [
             {
@@ -419,6 +432,7 @@ function bonger() {
 async function getData() {
     let loanData
     let factoryAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    let testAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
     let factoryABI = [
         {
             "inputs": [],
@@ -533,20 +547,42 @@ async function getData() {
     const factoryContract = new ethers.Contract(factoryAddress, factoryABI, provider)
 
 
-    const addressOfLoan = await factoryContract.viewAddressOfBorrower2Loan("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
-    let check = isNullAddress(addressOfLoan, "borrowerLoans")
-    if (check) {
-        const currLoanContract = new ethers.Contract(addressOfLoan, ucLoanABI, provider)
-        loanData = await loanFound(addressOfLoan, currLoanContract, 1)
+    const addressOfLoan = await factoryContract.viewAddressOfBorrower2Loan(testAddress)
+    ///returns array
+    noLoans = true
+
+    for (var i = 0; i < addressOfLoan.length; i++) {
+        let element = addressOfLoan[i]
+        console.log(element)
+        console.log(i)
+        if (element != 0x0000000000000000000000000000000000000000) {
+            const currLoanContract = new ethers.Contract(element, ucLoanABI, provider)
+            loanData = loanFoundB(addressOfLoan, currLoanContract)
+            noLoans = false
+        }
+    }
+    if (noLoans) {
+        noLoansFound("borrowerLoans")
     }
 
 
-    const addressOfLoan2 = await factoryContract.viewAddressOfLender2Loan("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
-    check = isNullAddress(addressOfLoan2, "lenderLoans")
-    if (check) {
-        const currLoanContract = new ethers.Contract(addressOfLoan, ucLoanABI, provider)
-        loanData = await loanFound(addressOfLoan2, currLoanContract, 2)
+    const addressOfLoan2 = await factoryContract.viewAddressOfLender2Loan(testAddress)
+    noLoans = true
+
+    for (var i = 0; i < addressOfLoan.length; i++) {
+        let element = addressOfLoan[i]
+        console.log(element)
+        console.log(i)
+        if (element != 0x0000000000000000000000000000000000000000) {
+            const currLoanContract = new ethers.Contract(element, ucLoanABI, provider)
+            loanData = loanFoundL(addressOfLoan, currLoanContract)
+            noLoans = false
+        }
     }
+    if (noLoans) {
+        noLoansFound("lenderLoans")
+    }
+
 
 
 
@@ -556,6 +592,7 @@ async function getData() {
 //function to change the display if no loans found
 function noLoansFound(id) {
     document.getElementById(id).innerHTML = "No Loans found. Start a new loan in the [Start a Loan] tab."
+    document.getElementById(id).classList.remove('hidden')
 }
 
 //function to test for null
@@ -569,24 +606,56 @@ function isNullAddress(address, id) {
 }
 
 //function to change the data
-async function loanFound(address, contract, number) {
+async function loanFoundB(address, contract) {
+    console.log("start loanfound")
     const loanAddress = address
     console.log(loanAddress)
-    document.getElementById("loanAddress" + number).innerHTML = "Address of Loan : " + loanAddress
+    document.getElementById("loanAddress1").innerHTML = "Address of Loan : " + loanAddress
     const lenderAddress = await contract.viewLender()
     console.log(lenderAddress)
-    document.getElementById("lenderAddress" + number).innerHTML = "Address of Lender : " + lenderAddress
+    document.getElementById("lenderAddress1").innerHTML = "Address of Lender : " + lenderAddress
     const borrowerAddress = await contract.viewBorrower()
     console.log(borrowerAddress)
-    document.getElementById("borrowerAddress" + number).innerHTML = "Address of Borrower : " + borrowerAddress
+    document.getElementById("borrowerAddress1").innerHTML = "Address of Borrower : " + borrowerAddress
     const amountBorrowed = BigInt(await contract.amountBorrowed()).toString()
     console.log(amountBorrowed)
-    document.getElementById("amountBorrowed" + number).innerHTML = "Amount Borrowed : " + amountBorrowed + " wei"
+    document.getElementById("amountBorrowed1").innerHTML = "Amount Borrowed : " + amountBorrowed + " wei"
     const amountToPay = BigInt(await contract.viewDebt()).toString()
     console.log(amountToPay)
-    document.getElementById("amountTotalPay" + number).innerHTML = "Amount Left To Pay : " + amountToPay + " wei"
+    document.getElementById("amountTotalPay1").innerHTML = "Amount Left To Pay : " + amountToPay + " wei"
     const timeLeft = await contract.viewTime()
     console.log(timeLeft)
+    var original = document.querySelector('#borrowerLoans');
+    var clone = original.cloneNode(true);
+    clone.id = 'borrowerLoans1'
+    clone.classList.remove('hidden');
+    original.after(clone);
+}
+
+//man im slow
+async function loanFoundL(address, contract) {
+    const loanAddress = address
+    console.log(loanAddress)
+    document.getElementById("loanAddress2").innerHTML = "Address of Loan : " + loanAddress
+    const lenderAddress = await contract.viewLender()
+    console.log(lenderAddress)
+    document.getElementById("lenderAddress2").innerHTML = "Address of Lender : " + lenderAddress
+    const borrowerAddress = await contract.viewBorrower()
+    console.log(borrowerAddress)
+    document.getElementById("borrowerAddress2").innerHTML = "Address of Borrower : " + borrowerAddress
+    const amountBorrowed = BigInt(await contract.amountBorrowed()).toString()
+    console.log(amountBorrowed)
+    document.getElementById("amountBorrowed2").innerHTML = "Amount Borrowed : " + amountBorrowed + " wei"
+    const amountToPay = BigInt(await contract.viewDebt()).toString()
+    console.log(amountToPay)
+    document.getElementById("amountTotalPay2").innerHTML = "Amount Left To Pay : " + amountToPay + " wei"
+    const timeLeft = await contract.viewTime()
+    console.log(timeLeft)
+    var original = document.querySelector('#lenderLoans');
+    var clone = original.cloneNode(true);
+    clone.id = 'lenderLoans1'
+    clone.classList.remove('hidden');
+    original.after(clone);
 }
 
 async function pendingLoan(contract) {
