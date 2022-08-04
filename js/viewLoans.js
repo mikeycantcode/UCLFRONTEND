@@ -486,6 +486,40 @@ async function getData() {
         {
             "inputs": [
                 {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ucloans",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "loan",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "borrower",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "lender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "guarantor",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "address",
                     "name": "_address",
                     "type": "address"
@@ -494,9 +528,9 @@ async function getData() {
             "name": "viewAddressOfBorrower2Loan",
             "outputs": [
                 {
-                    "internalType": "address",
+                    "internalType": "address[]",
                     "name": "",
-                    "type": "address"
+                    "type": "address[]"
                 }
             ],
             "stateMutability": "view",
@@ -513,9 +547,9 @@ async function getData() {
             "name": "viewAddressOfGuarantor2Loan",
             "outputs": [
                 {
-                    "internalType": "address",
+                    "internalType": "address[]",
                     "name": "",
-                    "type": "address"
+                    "type": "address[]"
                 }
             ],
             "stateMutability": "view",
@@ -530,6 +564,63 @@ async function getData() {
                 }
             ],
             "name": "viewAddressOfLender2Loan",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_index",
+                    "type": "uint32"
+                }
+            ],
+            "name": "viewLoanFinderBorrower",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_index",
+                    "type": "uint32"
+                }
+            ],
+            "name": "viewLoanFinderLender",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "_index",
+                    "type": "uint32"
+                }
+            ],
+            "name": "viewLoanFinderLoan",
             "outputs": [
                 {
                     "internalType": "address",
@@ -547,40 +638,55 @@ async function getData() {
     const factoryContract = new ethers.Contract(factoryAddress, factoryABI, provider)
 
 
-    const addressOfLoan = await factoryContract.viewAddressOfBorrower2Loan(testAddress)
-    ///returns array
-    noLoans = true
-
-    for (var i = 0; i < addressOfLoan.length; i++) {
-        let element = addressOfLoan[i]
-        console.log(element)
-        console.log(i)
-        if (element != 0x0000000000000000000000000000000000000000) {
-            const currLoanContract = new ethers.Contract(element, ucLoanABI, provider)
-            loanData = loanFoundB(addressOfLoan, currLoanContract)
+    var noLoans = true
+    //for element in addressOfLoan
+    var indexes = []
+    for (var i = 0; i < 50; i++) {
+        try {
+            var addy = await factoryContract.viewLoanFinderBorrower("" + i)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(addy)
+        if (addy == testAddress) {
             noLoans = false
+            indexes.push(i)
         }
     }
     if (noLoans) {
         noLoansFound("borrowerLoans")
+    } else {
+        for (var i = 0; i < indexes.length; i++) {
+            var contractAddress = await factoryContract.viewLoanFinderLoan("" + indexes[i])
+            const currLoanContract = new ethers.Contract(contractAddress, ucLoanABI, provider)
+            loanFoundB(contractAddress, currLoanContract)
+        }
     }
 
 
-    const addressOfLoan2 = await factoryContract.viewAddressOfLender2Loan(testAddress)
     noLoans = true
 
-    for (var i = 0; i < addressOfLoan.length; i++) {
-        let element = addressOfLoan[i]
-        console.log(element)
-        console.log(i)
-        if (element != 0x0000000000000000000000000000000000000000) {
-            const currLoanContract = new ethers.Contract(element, ucLoanABI, provider)
-            loanData = loanFoundL(addressOfLoan, currLoanContract)
+    indexes = []
+    for (var i = 0; i < 50; i++) {
+        try {
+            var addy = await factoryContract.viewLoanFinderLender("" + i)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(addy)
+        if (addy == testAddress) {
             noLoans = false
+            indexes.push(i)
         }
     }
     if (noLoans) {
         noLoansFound("lenderLoans")
+    } else {
+        for (var i = 0; i < indexes.length; i++) {
+            var contractAddress = await factoryContract.viewLoanFinderLoan("" + indexes[i])
+            const currLoanContract = new ethers.Contract(contractAddress, ucLoanABI, provider)
+            loanFoundL(contractAddress, currLoanContract)
+        }
     }
 
 
