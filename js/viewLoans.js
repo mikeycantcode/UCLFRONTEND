@@ -685,7 +685,11 @@ async function getData() {
         for (var i = 0; i < indexes.length; i++) {
             var contractAddress = await factoryContract.viewLoanFinderLoan("" + indexes[i])
             const currLoanContract = new ethers.Contract(contractAddress, ucLoanABI, provider)
-            loanFoundL(contractAddress, currLoanContract)
+            if (BigInt(await currLoanContract.viewCollateral()).toString() == "0") {
+                pendingLoan(currLoanContract)
+            } else {
+                loanFoundL(contractAddress, currLoanContract)
+            }
         }
     }
 

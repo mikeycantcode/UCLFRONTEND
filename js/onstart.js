@@ -17,7 +17,7 @@ async function loginWithEth() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner()
-    let address = await signer.getAccount()
+    let address = await signer.getAddress()
     localStorage.setItem("userAddress", address)
     document.getElementById("loginButton").innerHTML = truncateAddress(address);
 
