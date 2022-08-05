@@ -521,7 +521,7 @@ async function createLoan() {
     console.log(reqCollateral)
     var dueDate = document.getElementById("dueDate").value.toString()
     console.log(dueDate)
-    const options = { value: ethers.utils.parseEther("4.0") }
+    const options = { value: amountToLend }
     ethereum.request({ method: 'eth_requestAccounts' })
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()

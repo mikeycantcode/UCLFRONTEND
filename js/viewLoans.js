@@ -432,7 +432,7 @@ function bonger() {
 async function getData() {
     let loanData
     let factoryAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-    let testAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    let testAddress = localStorage.getItem("userAddress")
     let factoryABI = [
         {
             "inputs": [],
@@ -645,9 +645,8 @@ async function getData() {
         try {
             var addy = await factoryContract.viewLoanFinderBorrower("" + i)
         } catch (error) {
-            console.log(error)
+
         }
-        console.log(addy)
         if (addy == testAddress) {
             noLoans = false
             indexes.push(i)
@@ -659,7 +658,11 @@ async function getData() {
         for (var i = 0; i < indexes.length; i++) {
             var contractAddress = await factoryContract.viewLoanFinderLoan("" + indexes[i])
             const currLoanContract = new ethers.Contract(contractAddress, ucLoanABI, provider)
-            loanFoundB(contractAddress, currLoanContract)
+            if (BigInt(await currLoanContract.viewCollateral()).toString() == "0") {
+                pendingLoan(currLoanContract)
+            } else {
+                await loanFoundB(contractAddress, currLoanContract)
+            }
         }
     }
 
@@ -671,9 +674,7 @@ async function getData() {
         try {
             var addy = await factoryContract.viewLoanFinderLender("" + i)
         } catch (error) {
-            console.log(error)
         }
-        console.log(addy)
         if (addy == testAddress) {
             noLoans = false
             indexes.push(i)
@@ -685,11 +686,8 @@ async function getData() {
         for (var i = 0; i < indexes.length; i++) {
             var contractAddress = await factoryContract.viewLoanFinderLoan("" + indexes[i])
             const currLoanContract = new ethers.Contract(contractAddress, ucLoanABI, provider)
-            if (BigInt(await currLoanContract.viewCollateral()).toString() == "0") {
-                pendingLoan(currLoanContract)
-            } else {
-                loanFoundL(contractAddress, currLoanContract)
-            }
+            await loanFoundL(contractAddress, currLoanContract)
+
         }
     }
 
@@ -761,6 +759,7 @@ async function loanFoundL(address, contract) {
     document.getElementById("amountTotalPay2").innerHTML = "Amount Left To Pay : " + amountToPay + " wei"
     const timeLeft = await contract.viewTime()
     console.log(timeLeft)
+    document.getElementById("timeBar2").style.width = (amountBorrowed - amountToPay) / amountBorrowed * 100 + "%"
     var original = document.querySelector('#lenderLoans');
     var clone = original.cloneNode(true);
     clone.id = 'lenderLoans1'
@@ -770,6 +769,8 @@ async function loanFoundL(address, contract) {
 
 async function pendingLoan(contract) {
     document.getElementById("pLoanText").innerHTML = "Loan from " + await contract.viewLender() + " for " + BigInt(await contract.amountBorrowed()).toString() + " wei"
+    document.getElementById("accept").onclick = function () { acceptLoan(contract) }
+    document.getElementById("deny").onclick = function () { denyLoan(contract) }
     var original = document.querySelector('#pLoanTemplate');
     var clone = original.cloneNode(true);
     clone.id = 'pLoan1'
@@ -777,4 +778,15 @@ async function pendingLoan(contract) {
     original.after(clone);
 }
 
+
+async function acceptLoan(contract) {
+    const options = await contract.requiredCollateralAmount()
+    const tx = await contract.acceptLoanAndPayCollateral({
+        value: options
+    })
+}
+
+async function denyLoan(contract) {
+    const tx = await contract.denyLoan()
+}
 

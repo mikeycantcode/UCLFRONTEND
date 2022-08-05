@@ -21,22 +21,22 @@
                     <div>
                         <!-- Website Logo -->
                         <a href="/home.html" class="flex items-center py-4 px-2">
-                            <span class="text-slate-700 text-lg font-bold">-[ArbiLoan]-</span>
+                            <span class="text-slate-700 text-lg font-bold">arbiloan.xyz</span>
                         </a>
                     </div>
                     <!-- Primary Navbar items -->
                     <div class="hidden md:flex items-center space-x-1">
                         <a href="/viewLoans.html"
-                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300 ">[VIEW
-                            LOANS]</a>
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300 ">[view
+                            loans]</a>
                         <a href="/beginLoans.html"
-                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300">[START
-                            A LOAN]</a>
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 rounded-md transition duration-300">[start
+                            a loan]</a>
                         <a href="/closeLoans.html"
-                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 transition duration-300">[CLOSE
-                            LOANS]</a>
+                            class="py-4 px-2 text-slate-500 hover:text-indigo-50 transition duration-300">[close
+                            loans]</a>
                         <a href="/faq.html"
-                            class="py-4 px-2 text-slate-500  hover:text-indigo-50 transition duration-300">[FAQ]</a>
+                            class="py-4 px-2 text-slate-500  hover:text-indigo-50 transition duration-300">[faq]</a>
                     </div>
                 </div>
                 <!-- Secondary Navbar items -->
@@ -132,6 +132,14 @@
             <p>Amount Left To Pay: 10 ETH</p>
         </figure>
     -->
+    <div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+        <h1 class="text-slate-900 font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tight text-center">
+            view your current loans.</h1>
+        <p class="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
+            view loans, accept incoming loans, and repay them on this page.
+        </p>
+
+    </div>
 
     <div id="bLoans" class="flex relative mx-auto pt-70 sm:pt-24 lg:pt-32">
         <div
@@ -147,6 +155,9 @@
                     <p id="amountBorrowed1" class="py-2"></p>
                     <p id="amountTotalPay1"></p>
                     <p id="status1"></p>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                    </div>
                 </div>
                 <div class="p-12">
 
@@ -194,13 +205,18 @@
                 Active Loans where you are the Lender
             </h1>
             <div id="lenderLoans" class="hidden flex">
-                <div class="padding py-6">
+                <div
+                    class="padding shadow-lg m-auto bg-fuchsia-100 bg-opacity-50 backdrop-blur-3xl border-2 border-gray-900 border-opacity-90 py-6 px-6 space-y-3 rounded-xl text-center items-center md:px-12 w-5/6 h-3/4 py-6">
                     <p id="loanAddress2"></p>
                     <p id="lenderAddress2"></p>
                     <p id="borrowerAddress2"></p>
                     <p id="amountBorrowed2" class="py-2"></p>
                     <p id="amountTotalPay2"></p>
-                    <p id="status">Reading the blockchain...</p>
+                    <div class="w-full bg-slate-200 rounded-full h-2.5">
+                        <div id="timeBar2" class="bg-gradient-to-r from-fuchsia-400 to-red-400 h-2.5 rounded-full"
+                            style="width: 45%">
+                        </div>
+                    </div>
                 </div>
                 <div class="p-12">
 
