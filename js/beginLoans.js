@@ -537,7 +537,10 @@ async function createLoan() {
         options
     )
     console.log(createLoan)
+    const { data, hash } = createLoan
+    document.getElementById("terminal").innerHTML = data
+    document.getElementById("terminal").innerHTML += hash
     const tx = await createLoan.wait()
-    console.log(tx)
+    document.getElementById("terminal").innerHTML += tx.toString()
 
 }
